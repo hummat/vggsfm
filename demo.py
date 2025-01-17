@@ -84,5 +84,6 @@ def demo_fn(cfg: DictConfig):
 
 
 if __name__ == "__main__":
-    with torch.no_grad():
-        demo_fn()
+    with torch.inference_mode():
+        with torch.autocast(device_type="cuda"):
+            demo_fn()
