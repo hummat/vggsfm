@@ -15,7 +15,7 @@ import datetime
 import time
 import numpy as np
 from visdom import Visdom
-from torch.cuda.amp import autocast
+from torch.amp import autocast
 from hydra.utils import instantiate
 from lightglue import SuperPoint, SIFT, ALIKED
 
@@ -341,7 +341,7 @@ class VGGSfMRunner:
         predictions = {}
 
         # Find the query frames using DINO or frame names
-        with autocast(dtype=dtype):
+        with autocast(device_type='cuda', dtype=dtype):
             if self.cfg.query_by_midpoint:
                 query_frame_indexes = generate_rank_by_midpoint(frame_num)
             elif self.cfg.query_by_interval:
@@ -415,7 +415,7 @@ class VGGSfMRunner:
             )
 
         # Predict tracks
-        with autocast(dtype=dtype):
+        with autocast(device_type='cuda', dtype=dtype):
             pred_track, pred_vis, pred_score = predict_tracks(
                 self.cfg.query_method,
                 self.cfg.max_query_pts,
@@ -486,7 +486,7 @@ class VGGSfMRunner:
         )
 
         # Perform triangulation and bundle adjustment
-        with autocast(dtype=torch.float32):
+        with autocast(device_type='cuda', dtype=torch.float32):
             (
                 extrinsics_opencv,
                 intrinsics_opencv,
