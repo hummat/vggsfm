@@ -11,6 +11,9 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
+with open("requirements.txt", "r") as f:
+    dependencies = f.read().split("\n")
+
 setup(
     name="vggsfm",
     version="2.0.0",
@@ -21,6 +24,8 @@ setup(
     url="https://github.com/facebookresearch/vggsfm.git",
     packages=find_packages(),
     python_requires=">=3.10",
+    install_requires=dependencies,
     package_data={"vggsfm": ["cfgs/*.yaml"]},
-    entry_points={"console_scripts": ["vggsfm-demo=vggsfm_demo:demo_fn"]},
+    entry_points={"console_scripts": ["vggsfm-image=demo:demo_fn",
+                                      "vggsfm-video=video_demo:demo_fn"]}
 )
