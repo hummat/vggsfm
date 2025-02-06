@@ -14,7 +14,6 @@ import datetime
 
 import time
 import numpy as np
-from visdom import Visdom
 from torch.amp import autocast
 from hydra.utils import instantiate
 from lightglue import SuperPoint, SIFT, ALIKED
@@ -165,6 +164,8 @@ class VGGSfMRunner:
         """
         Set up a Visdom server for visualization.
         """
+        from visdom import Visdom
+
         self.viz = Visdom()
 
     def run(
