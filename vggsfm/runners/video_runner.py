@@ -1143,8 +1143,8 @@ class VideoRunner(VGGSfMRunner):
             window_fmaps_for_tracker,
             [0],
             self.cfg.fine_tracking,
-            self.bound_bboxes.expand(-1, window_images.shape[1], -1),
-            query_points_dict={0: query_points},
+            self.bound_bboxes.expand(-1, window_images.shape[1], -1), query_points_dict={0: query_points},
+            max_points_num=self.cfg.max_points_num,
         )
 
         if use_support_points:
@@ -1216,6 +1216,7 @@ class VideoRunner(VGGSfMRunner):
             [window_size // 2, window_size],
             self.cfg.fine_tracking,
             self.bound_bboxes.expand(-1, window_images.shape[1], -1),
+            max_points_num=self.cfg.max_points_num,
         )
 
         window_pred_track = window_pred_track.squeeze(0)

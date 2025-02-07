@@ -286,6 +286,7 @@ class Triangulator(nn.Module):
                     max_reproj_error=max_reproj_error,
                     ba_options=ba_options,
                     camera_type=camera_type,
+                    max_tri_points_num=self.cfg.max_tri_points_num,
                 )
                 
                 print(f"Finished iterative BA {BA_iter}")
@@ -392,6 +393,7 @@ class Triangulator(nn.Module):
                 tracks_normalized_refined,  # TxNx2
                 track_vis=pred_vis,  # TxN
                 track_score=pred_score,  # TxN
+                max_tri_points_num=self.cfg.max_tri_points_num,
             )
         )
 

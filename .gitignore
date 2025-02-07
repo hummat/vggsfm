@@ -144,3 +144,4 @@ dmypy.json
 **/outputs/
 
 .idea/
+.aider*

@@ -10,9 +10,9 @@ import hydra
 from omegaconf import DictConfig, OmegaConf
 
 # from vggsfm.runners.runner import VGGSfMRunner
-from vggsfm.runners.video_runner import VideoRunner
-from vggsfm.datasets.demo_loader import DemoLoader
-from vggsfm.utils.utils import seed_all_random_engines
+from .runners.video_runner import VideoRunner
+from .datasets.demo_loader import DemoLoader
+from .utils.utils import seed_all_random_engines
 
 
 @hydra.main(config_path="../cfgs/", config_name="video_demo")

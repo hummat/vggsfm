@@ -427,6 +427,7 @@ class VGGSfMRunner:
                 query_frame_indexes,
                 self.cfg.fine_tracking,
                 bound_bboxes,
+                max_points_num=self.cfg.max_points_num,
             )
 
             # Complement non-visible frames if enabled
@@ -441,6 +442,7 @@ class VGGSfMRunner:
                     [pred_track, pred_vis, pred_score],
                     self.cfg.fine_tracking,
                     bound_bboxes,
+                    max_points_num=self.cfg.max_points_num,
                 )
 
         # Visualize tracks as a video if enabled
@@ -693,6 +695,7 @@ class VGGSfMRunner:
                 fine_tracking=False,
                 bound_bboxes=bound_bboxes[:, neighbor_start:neighbor_end],
                 query_points_dict={rel_frame_idx: grid_points[None]},
+                max_points_num=self.cfg.max_points_num,
             )
 
             extra_params_neighbor = (
@@ -1077,7 +1080,7 @@ def predict_tracks(
     fine_tracking,
     bound_bboxes=None,
     query_points_dict=None,
-    max_points_num=None,
+    max_points_num: int = 163840,
 ):
     """
     Predict tracks for the given images and masks.
@@ -1148,9 +1151,6 @@ def predict_tracks(
         )
 
         all_points_num = images_feed.shape[1] * query_points.shape[1]
-        
-        if max_points_num is None:
-            max_points_num = 163840  # Default value from config
 
         if all_points_num > max_points_num:
             print('Predict tracks in chunks to fit in memory')
@@ -1213,6 +1213,7 @@ def comple_nonvis_frames(
     fine_tracking,
     bound_bboxes=None,
     min_vis=500,
+    max_points_num: int = 163840,
 ):
     """
     Completes non-visible frames by predicting additional 2D matches.
@@ -1269,6 +1270,7 @@ def comple_nonvis_frames(
             non_vis_query_list,
             fine_tracking,
             bound_bboxes,
+            max_points_num=max_points_num,
         )
 
         # concat predictions

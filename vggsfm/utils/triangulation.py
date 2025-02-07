@@ -683,7 +683,7 @@ def triangulate_tracks(
     min_tri_angle=1.5,
     track_vis=None,
     track_score=None,
-    max_tri_points_num=81920,
+    max_tri_points_num: int = 81920,
 ):
     """
     Triangulate Tracks. If necessary, process tracks in smaller chunks to avoid memory issues during triangulation.
@@ -1089,6 +1089,7 @@ def iterative_global_BA(
     lastBA=False,
     camera_type="SIMPLE_PINHOLE",
     extra_params=None,  # Add extra_params to the function signature
+    max_tri_points_num: int = 81920,
 ):
     # normalize points from pixel
 
@@ -1104,6 +1105,7 @@ def iterative_global_BA(
             track_vis=pred_vis,
             track_score=pred_score,
             max_ransac_iters=128,
+            max_tri_points_num=max_tri_points_num,
         )
     )
 
