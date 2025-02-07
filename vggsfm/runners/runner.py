@@ -12,14 +12,12 @@ import torch
 import pycolmap
 import datetime
 
-import time
 import numpy as np
 from torch.amp import autocast
 from hydra.utils import instantiate
 from lightglue import SuperPoint, SIFT, ALIKED
 
 from collections import defaultdict
-from vggsfm.utils.visualizer import Visualizer
 from vggsfm.two_view_geo.estimate_preliminary import (
     estimate_preliminary_cameras,
 )
@@ -447,6 +445,8 @@ class VGGSfMRunner:
 
         # Visualize tracks as a video if enabled
         if self.cfg.visual_tracks:
+            from vggsfm.utils.visualizer import Visualizer
+
             vis = Visualizer(save_dir=visual_dir, linewidth=1)
             vis.visualize(
                 images * 255, pred_track, pred_vis[..., None], filename="track"

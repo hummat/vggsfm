@@ -4,4 +4,5 @@ pycolmap==3.10.0
 poselib==2.0.2
 einops
 numpy<2
+tqdm
 lightglue@git+https://github.com/cvg/LightGlue
