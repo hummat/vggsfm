@@ -34,6 +34,7 @@ fmat_thres: 4.0
 max_reproj_error: 4.0
 init_max_reproj_error: 4.0
 max_query_pts: 2048
+max_tri_points_num: 81920  # Maximum number of points to triangulate at once
 
 dense_depth: False
 

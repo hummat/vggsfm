@@ -683,7 +683,7 @@ def triangulate_tracks(
     min_tri_angle=1.5,
     track_vis=None,
     track_score=None,
-    max_tri_points_num=819200 // 10,
+    max_tri_points_num=81920,
 ):
     """
     Triangulate Tracks. If necessary, process tracks in smaller chunks to avoid memory issues during triangulation.
