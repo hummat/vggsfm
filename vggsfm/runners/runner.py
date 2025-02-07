@@ -1077,7 +1077,7 @@ def predict_tracks(
     fine_tracking,
     bound_bboxes=None,
     query_points_dict=None,
-    max_points_num=163840 // 10,
+    max_points_num=163840,
 ):
     """
     Predict tracks for the given images and masks.
