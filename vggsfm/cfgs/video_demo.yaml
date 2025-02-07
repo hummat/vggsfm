@@ -7,8 +7,8 @@ query_by_midpoint: True
 shared_camera: True
 camera_type: "SIMPLE_RADIAL"   # optional: ["SIMPLE_PINHOLE", "SIMPLE_RADIAL"]
 max_query_pts: 1024
-max_tri_points_num: 81920  # Maximum number of points to triangulate at once
-max_points_num: 163840  # Maximum number of points to process in one chunk
+max_tri_points_num: 16384  # Maximum number of points to triangulate at once
+max_points_num: 32768  # Maximum number of points to process in one chunk
 
 init_window_size: 32
 window_size: 16
