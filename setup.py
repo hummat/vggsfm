@@ -23,9 +23,9 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/facebookresearch/vggsfm.git",
     packages=find_packages(),
-    python_requires=">=3.10",
+    python_requires=">=3.9",
     install_requires=dependencies,
     package_data={"vggsfm": ["cfgs/*.yaml"]},
-    entry_points={"console_scripts": ["vggsfm-image=demo:demo_fn",
-                                      "vggsfm-video=video_demo:demo_fn"]}
+    entry_points={"console_scripts": ["vggsfm-image=vggsfm.demo:demo_fn",
+                                      "vggsfm-video=vggsfm.video_demo:demo_fn"]}
 )

@@ -15,7 +15,7 @@ from vggsfm.datasets.demo_loader import DemoLoader
 from vggsfm.utils.utils import seed_all_random_engines
 
 
-@hydra.main(config_path="cfgs/", config_name="video_demo")
+@hydra.main(config_path="../cfgs/", config_name="video_demo")
 def demo_fn(cfg: DictConfig):
     """
     Main function to run the VGGSfM demo. VideoRunner is the main controller.
