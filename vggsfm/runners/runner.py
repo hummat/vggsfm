@@ -1077,7 +1077,7 @@ def predict_tracks(
     fine_tracking,
     bound_bboxes=None,
     query_points_dict=None,
-    max_points_num=163840,
+    max_points_num=None,
 ):
     """
     Predict tracks for the given images and masks.
@@ -1148,6 +1148,9 @@ def predict_tracks(
         )
 
         all_points_num = images_feed.shape[1] * query_points.shape[1]
+        
+        if max_points_num is None:
+            max_points_num = self.cfg.max_points_num
 
         if all_points_num > max_points_num:
             print('Predict tracks in chunks to fit in memory')
