@@ -1150,7 +1150,7 @@ def predict_tracks(
         all_points_num = images_feed.shape[1] * query_points.shape[1]
         
         if max_points_num is None:
-            max_points_num = self.cfg.max_points_num
+            max_points_num = 163840  # Default value from config
 
         if all_points_num > max_points_num:
             print('Predict tracks in chunks to fit in memory')
