@@ -5,4 +5,5 @@ poselib==2.0.2
 einops
 numpy<2
 tqdm
+scipy
 lightglue@git+https://github.com/cvg/LightGlue
