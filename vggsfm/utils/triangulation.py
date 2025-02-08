@@ -384,7 +384,7 @@ def refine_pose(
         estimate_abs_pose = False
 
         if inlier_mask.sum() > 100:
-            answer = pycolmap.pose_refinement(
+            answer = pycolmap.refine_absolute_pose(
                 cam_from_world,
                 points2D,
                 points3D,
@@ -587,7 +587,7 @@ def init_refine_pose(
             if inlier_mask.sum() > 50:
                 # If too few inliers, ignore it
                 # Bundle adjustment without optimizing 3D point
-                answer = pycolmap.pose_refinement(
+                answer = pycolmap.refine_absolute_pose(
                     cam_from_world,
                     points2D,
                     points3D,

@@ -149,13 +149,17 @@ def batch_matrix_to_pycolmap(
 
         try:
             image.points2D = pycolmap.ListPoint2D(points2D_list)
-            image.registered = True
-        except:
-            print(f"frame {fidx} is out of BA")
-            image.registered = False
+            if not reconstruction.exists_image(image.image_id):
+                reconstruction.add_image(image)
+            reconstruction.register_image(image.image_id)
+        except Exception as e:
+            print(f"frame {fidx} is out of BA: {e}")
+            if reconstruction.exists_image(image.image_id):
+                reconstruction.deregister_image(image.image_id)
 
         # add image
-        reconstruction.add_image(image)
+        if not reconstruction.exists_image(image.image_id):
+            reconstruction.add_image(image)
 
     return reconstruction
 

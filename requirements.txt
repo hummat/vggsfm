@@ -1,6 +1,6 @@
 hydra-core
-pyceres==2.3
-pycolmap==3.10.0
+pyceres>=2.4
+pycolmap>=3.11
 poselib==2.0.2
 einops
 numpy<2

@@ -819,7 +819,7 @@ class VideoRunner(VGGSfMRunner):
             ba_config.add_image(image_id)
 
         # Fix frame 0, i.e, the end frame of the last window
-        ba_config.set_constant_cam_pose(rec.reg_image_ids()[0])
+        ba_config.set_constant_cam_pose(next(iter(rec.reg_image_ids())))
 
         for fixp_idx in rec.point3D_ids():
             if fixp_idx < (exist_points_3D_num + 1):
@@ -998,7 +998,7 @@ class VideoRunner(VGGSfMRunner):
                 cam_from_world = estanswer["cam_from_world"]
                 print(estanswer["inliers"].mean())
 
-            answer = pycolmap.pose_refinement(
+            answer = pycolmap.refine_absolute_pose(
                 cam_from_world,
                 points2D,
                 points3D,
@@ -1320,15 +1320,9 @@ def log_ba_summary(summary):
 
 
 def solve_bundle_adjustment(reconstruction, ba_options, ba_config):
-    bundle_adjuster = pycolmap.BundleAdjuster(ba_options, ba_config)
-    bundle_adjuster.set_up_problem(
-        reconstruction, ba_options.create_loss_function()
-    )
-    solver_options = bundle_adjuster.set_up_solver_options(
-        bundle_adjuster.problem, ba_options.solver_options
-    )
+    bundle_adjuster = pycolmap.create_default_bundle_adjuster(ba_options, ba_config, reconstruction)
     summary = pyceres.SolverSummary()
-    pyceres.solve(solver_options, bundle_adjuster.problem, summary)
+    pyceres.solve(ba_options.solver_options, bundle_adjuster.problem, summary)
     return summary
 
 
