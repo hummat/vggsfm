@@ -157,7 +157,6 @@ def batch_matrix_to_pycolmap(
             if reconstruction.exists_image(image.image_id):
                 reconstruction.deregister_image(image.image_id)
 
-        # add image
         if not reconstruction.exists_image(image.image_id):
             reconstruction.add_image(image)
 

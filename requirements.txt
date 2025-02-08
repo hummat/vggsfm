@@ -1,3 +1,4 @@
+torch>=2.0,<2.6
 hydra-core
 pyceres>=2.4
 pycolmap>=3.11

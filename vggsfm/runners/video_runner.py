@@ -5,13 +5,9 @@
 # LICENSE file in the root directory of this source tree.
 
 import torch
-import cv2
 import os
-import copy
 import time
-import math
 import random
-import pyceres
 import pycolmap
 import numpy as np
 import datetime
@@ -590,16 +586,21 @@ class VideoRunner(VGGSfMRunner):
                 track = reconstruction.points3D[pycolmap_point3D_id].track
                 track.add_element(image_idx, point2D_idx)
                 point2D_idx += 1
+
             assert point2D_idx == len(points2D_list)
 
             try:
                 pyimg.points2D = pycolmap.ListPoint2D(points2D_list)
-                pyimg.registered = True
-            except:
-                print(f"frame {image_idx} is out of BA")
-                pyimg.registered = False
+                if not reconstruction.exists_image(pyimg.image_id):
+                    reconstruction.add_image(pyimg)
+                reconstruction.register_image(pyimg.image_id)
+            except Exception as e:
+                print(f"frame {image_idx} is out of BA: {e}")
+                if reconstruction.exists_image(pyimg.image_id):
+                    reconstruction.deregister_image(pyimg.image_id)
 
-            reconstruction.add_image(pyimg)
+            if not reconstruction.exists_image(pyimg.image_id):
+                reconstruction.add_image(pyimg)
 
         return reconstruction
 
@@ -1320,10 +1321,13 @@ def log_ba_summary(summary):
 
 
 def solve_bundle_adjustment(reconstruction, ba_options, ba_config):
-    bundle_adjuster = pycolmap.create_default_bundle_adjuster(ba_options, ba_config, reconstruction)
-    summary = pyceres.SolverSummary()
-    pyceres.solve(ba_options.solver_options, bundle_adjuster.problem, summary)
-    return summary
+    """
+    bundle_adjuster = pycolmap.BundleAdjuster(ba_options, ba_config)
+    bundle_adjuster.set_up_problem(
+        reconstruction, ba_options.create_loss_function()
+    )
+    """
+    return pycolmap.create_default_bundle_adjuster(ba_options, ba_config, reconstruction).solve()
 
 
 def extract_window(start_idx, end_idx, *vars):
