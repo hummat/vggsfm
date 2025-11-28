@@ -1,9 +1,53 @@
-hydra-core
-pyceres==2.3
-pycolmap==3.10.0
-poselib==2.0.2
+# Core dependencies
+# PyTorch and torchvision should be installed separately based on your CUDA version
+# Recommended: PyTorch 2.1.0+ with CUDA 12.1+
+# conda install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
+
+# Configuration management
+hydra-core>=1.3
+omegaconf
+
+# Computer vision and numerical computing
+numpy>=1.24.4
+opencv-python
 einops
-numpy<2
-tqdm
 scipy
+kornia
+
+# 3D reconstruction (COLMAP ecosystem)
+pycolmap==3.10.0
+pyceres==2.3
+
+# Feature matching
 lightglue@git+https://github.com/cvg/LightGlue
+
+# Visualization and I/O
+matplotlib
+Pillow
+imageio[ffmpeg]
+tqdm
+
+# Model checkpoint download (optional but recommended)
+huggingface_hub
+
+# Optional dependencies for advanced features
+# Uncomment or install separately as needed:
+
+# Camera pose estimation (recommended for better accuracy)
+poselib==2.0.2
+
+# Visualization tools
+# visdom  # 3D visualization server
+# gradio  # Web-based visualization
+# trimesh  # Required for gradio visualization
+# plotly  # Required for pytorch3d visualization
+
+# Dense depth prediction
+# scikit-learn  # Required for dense depth feature
+
+# Benchmark/evaluation (IMC dataset)
+# h5py  # Required for IMC dataset loading
+
+# PyTorch3D (optional, only for visdom visualization)
+# Install separately with: conda install pytorch3d=0.7.5 -c pytorch3d
+# or from source: https://github.com/facebookresearch/pytorch3d

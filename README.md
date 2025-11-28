@@ -49,14 +49,21 @@ dir="auto">[<a href="https://arxiv.org/pdf/2312.04563.pdf" rel="nofollow">Paper<
   - [FAQs](#10-faqs)
 
 ## Installation
-We provide a simple installation script that, by default, sets up a conda environment with Python 3.10, PyTorch 2.1, and CUDA 12.1.
+We recommend setting up a conda environment with Python 3.10, PyTorch 2.1+, and CUDA 12.1+.
 
 ```.bash
-source install.sh
+# Create and activate conda environment
+conda create -n vggsfm python=3.10
+conda activate vggsfm
+
+# Install PyTorch with CUDA support (adjust CUDA version as needed)
+conda install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
+
+# Install the package and dependencies
 python -m pip install -e .
 ```
 
-This script installs official ```pytorch3d```, ```lightglue```, ```pycolmap```, ```poselib```, and ```visdom```. If you cannot install ```pytorch3d``` on your machine, feel free to skip it, because now we only use it for visdom visualization (i.e., ```cfg.viz_visualize=True```). 
+Core dependencies (```pycolmap```, ```poselib```, ```lightglue```, etc.) are automatically installed from `requirements.txt`. Optional dependencies like ```pytorch3d``` and ```visdom``` can be installed separately if needed for visualization (```cfg.viz_visualize=True```). See `requirements.txt` for the full list of optional dependencies. 
 
 
 ## RECONSTRUCTION  
